@@ -128,31 +128,6 @@ esac
 mkdir -p "${TARGET}-build"
 cd "${TARGET}-build"
 
-"${TARGET}-src/configure" \
-      --prefix=/"${TARGET}/usr" \
-      --with-sysroot="/${TARGET}" \
-      --disable-bootstrap \
-      --disable-libmpx \
-      --disable-libsanitizer \
-      --disable-libunwind-exceptions \
-      --disable-libunwind-exceptions \
-      --disable-lto \
-      --disable-multilib \
-      --enable-__cxa_atexit \
-      --enable-gnu-indirect-function \
-      --enable-gnu-unique-object \
-      --enable-initfini-array \
-      --enable-languages="c,c++" \
-      --enable-linker-build-id \
-      --enable-plugin \
-      --enable-shared \
-      --enable-threads=posix \
-      --with-default-libstdcxx-abi=${LIBSTDCXX_ABI} \
-      --with-gcc-major-version-only \
-      --with-linker-hash-style="gnu" \
-      --with-tune="generic"
-
-
 # Create the devtoolset libstdc++ linkerscript that links dynamically against
 # the system libstdc++ 4.4 and provides all other symbols statically.
 case "${VERSION}" in
