@@ -415,3 +415,42 @@ def initialize_rbe_configs():
             "TF_TENSORRT_VERSION": "8.4",
         },
     )
+
+    sigbuild_tf_configs(
+        name_container_map = {
+            "sigbuild-58591": "docker://gcr.io/tensorflow-sigs/build@sha256:201cc54a05bb3d467d2ca792c84a03e570447d3a657d4e19cbaf416cd105731d",
+            "sigbuild-58591-python3.7": "docker://gcr.io/tensorflow-sigs/build@sha256:1872ff0c6e68ebe2a413d2dce2da5461f552696229ed39ca2b817b8bc3179635",
+            "sigbuild-58591-python3.8": "docker://gcr.io/tensorflow-sigs/build@sha256:145ee45c69d87b38c298b3663701886b8571e93f542d19788b49d54567432384",
+            "sigbuild-58591-python3.9": "docker://gcr.io/tensorflow-sigs/build@sha256:201cc54a05bb3d467d2ca792c84a03e570447d3a657d4e19cbaf416cd105731d",
+            "sigbuild-58591-python3.10": "docker://gcr.io/tensorflow-sigs/build@sha256:e5dda036429b6f22fda267b9797e9d898f4f7d33084b7187af6ad062e99e22c5",
+        },
+        # Unclear why LIBC is set to 2.19 here, and yet manylinux2010 is 2.12
+        # and manylinux2014 is 2.17.
+        env = {
+            "ABI_LIBC_VERSION": "glibc_2.19",
+            "ABI_VERSION": "gcc",
+            "BAZEL_COMPILER": "/usr/lib/llvm-14/bin/clang",
+            "BAZEL_HOST_SYSTEM": "i686-unknown-linux-gnu",
+            "BAZEL_TARGET_CPU": "k8",
+            "BAZEL_TARGET_LIBC": "glibc_2.19",
+            "BAZEL_TARGET_SYSTEM": "x86_64-unknown-linux-gnu",
+            "CC": "/usr/lib/llvm-14/bin/clang",
+            "CC_TOOLCHAIN_NAME": "linux_gnu_x86",
+            "CLEAR_CACHE": "1",
+            "CUDNN_INSTALL_PATH": "/usr/lib/x86_64-linux-gnu",
+            "CLANG_CUDA_COMPILER_PATH": "/usr/lib/llvm-14/bin/clang",
+            "HOST_CXX_COMPILER": "/usr/lib/llvm-14/bin/clang",
+            "HOST_C_COMPILER": "/usr/lib/llvm-14/bin/clang",
+            "PYTHON_BIN_PATH": "/usr/bin/python3",
+            "TENSORRT_INSTALL_PATH": "/usr/lib/x86_64-linux-gnu",
+            "TF_CUDA_CLANG": "1",
+            "TF_CUDA_COMPUTE_CAPABILITIES": "3.5,6.0",
+            "TF_CUDA_VERSION": "11.2",
+            "TF_CUDNN_VERSION": "8.1",
+            "TF_ENABLE_XLA": "1",
+            "TF_NEED_CUDA": "1",
+            "TF_NEED_TENSORRT": "1",
+            "TF_SYSROOT": "/dt9",
+            "TF_TENSORRT_VERSION": "7.2",
+        },
+    )

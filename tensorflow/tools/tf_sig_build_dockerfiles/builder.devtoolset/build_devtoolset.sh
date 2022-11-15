@@ -150,10 +150,7 @@ cd "${TARGET}-build"
       --with-default-libstdcxx-abi=${LIBSTDCXX_ABI} \
       --with-gcc-major-version-only \
       --with-linker-hash-style="gnu" \
-      --with-tune="generic" \
-      && \
-    make -j 42 && \
-    make install
+      --with-tune="generic"
 
 
 # Create the devtoolset libstdc++ linkerscript that links dynamically against
@@ -189,3 +186,11 @@ PYTHON_VERSIONS=("python3.7m" "python3.8" "python3.9" "python3.10")
 for v in "${PYTHON_VERSIONS[@]}"; do
   ln -s "/usr/local/include/${v}" "/${TARGET}/usr/include/x86_64-linux-gnu/${v}"
 done
+
+# Patch glibc to be compatable with modern clang
+case "${VERSION}" in
+devtoolset-9)
+  cd /
+  patch -p0 < /glibc2.17-inline.patch
+;;
+esac
